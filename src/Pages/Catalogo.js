@@ -1,6 +1,6 @@
 import CarroComponent from '../components/CarroComponent'
 import React, { useEffect, useState } from 'react'
-import LoginComponent from '../components/LoginComponent'
+import LoginComponent from '../components/LoginBarComponent'
 
 function Catalogo() {
 

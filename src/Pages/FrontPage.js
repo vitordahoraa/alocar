@@ -1,6 +1,6 @@
 import '../Style/FrontPage.css';
 import {Link} from 'react-router-dom'
-import LoginComponent from '../components/LoginComponent'
+import LoginComponent from '../components/LoginBarComponent'
 
 function FrontPage() {
   return (

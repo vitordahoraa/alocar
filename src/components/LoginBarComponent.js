@@ -6,8 +6,8 @@ export default class Login extends Component{
     render(){
         return(
         <div className="Credential">
-            <button id="Login">Login</button>
-            <button id="Register">Register</button>
+            <Link to='/login'>Login</Link>
+            <Link to='/register'>Register</Link>
         </div>
         )
     }
