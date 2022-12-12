@@ -7,12 +7,50 @@ const getUsers = function(request, response){
         return response.status(200).json(result);
     });
 }
+
+const getUserByUsername = function(request, response){
+    user.
+    findOne({
+        where:{
+            username:request.params.username
+        }
+    })
+    .then((result)=>{
+            return response.status(200).send(result)
+        }
+
+    )
+    .cathc((err)=>{
+        return response.status(406).send
+            (
+                {
+                    "message": "NÃ£o foi possivel encontrar o user de username "+request.params.username
+                }
+            )
+        }
+    )
+}
 const postUser = function(request, response){
+
+    let result = fetch('http://localhost:3001/users/?username='+username,{
+        method: 'GET',
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    }).then((response)=>{
+        if(!response.ok){
+            return response.status(406).send(
+                {
+                "message": "NÃ£o foi possivel criar o usuÃ¡rio. Usuário já existente"
+                }
+            )
+        }
+    })
+
 
     user.create({
         username: request.body.username,
-        password: request.body.password,
-        client_id: request.body.client_id
+        password: request.body.password
     })
     .then(function(data){
         return response.status(200).send({
@@ -32,7 +70,6 @@ const updateUser = (request, response) =>{
         {
             username: request.body.username,
             password: request.body.password,
-            client_id: request.body.client_id,
             modified_time: Sequelize.literal('CURRENT_TIMESTAMP')
         },
         {where:{id:request.params.id}}
@@ -60,4 +97,4 @@ const deleteUser = function(request, response){
 }
 
 
-module.exports = {getUsers,postUser,updateUser,deleteUser};
+module.exports = {getUsers,postUser,updateUser,deleteUser,getUserByUsername};

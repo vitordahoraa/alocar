@@ -23,14 +23,6 @@ const user = db.define('user',{
     modified_time:{
         type: 'TIMESTAMP',
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-    },
-    client_id:{
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'clientes',
-            key: 'id'
-        }
     }
 },{
     timestamps:false

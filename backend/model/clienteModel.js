@@ -16,6 +16,18 @@ const user = db.define('cliente',{
         type: Sequelize.STRING,
         allowNull: false
     },
+    id_user:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'users',
+            key: 'id'
+        }
+    },
+    Email:{
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     created_time: {
         type: 'TIMESTAMP',
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),

@@ -14,9 +14,9 @@ function Catalogo() {
     const getCarros = async ()=>{
 
         let result = await fetch('http://localhost:3001/carros/',{
-            methon: 'GET',
+            method: 'GET',
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             }
         })
         result = await result.json()

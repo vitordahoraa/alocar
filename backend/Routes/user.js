@@ -7,6 +7,7 @@ const Router = express.Router();
 Router.use(express.json());
 
 Router.get('/',UserController.getUsers);
+Router.get('/',UserController.getUsers);
 Router.post('/',UserController.postUser);
 Router.put('/update/:id',UserController.updateUser);
 Router.delete('/delete/:id',UserController.deleteUser);

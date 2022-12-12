@@ -2,16 +2,62 @@ const { response } = require('express');
 const cliente = require('../model/clienteModel');
 const Sequelize = require('sequelize');
 
-const getCliente = function(request, response){
+
+const getCliente = (request,response) =>{
     cliente.findAll().then(function(result){
         return response.status(200).json(result);
     });
 }
+
+
+const getClienteById = function(request, response){
+    cliente.
+    findOne({where:{
+        id:request.params.id
+        }
+    })
+    .then(function(result){
+        return response.status(200).json(result);
+    })
+    .catch(function(result){
+        return response.status(406).send
+            (
+                {
+                    "message": "Não foi possivel encontrar o cliente de id "+request.params.id
+                }
+            )
+        }
+    )
+}
+
+const getClienteByNomeAndCpf = function(request, response){
+    cliente.
+    findOne({where:{
+        Nome:request.params.nome,
+        CPF:request.params.CPF
+        }
+    })
+    .then(function(result){
+        return response.status(200).json(result);
+    })
+    .catch(function(result){
+        return response.status(406).send
+            (
+                {
+                    "message": "Não foi possivel encontrar o cliente de nome "+request.params.nome
+                }
+            )
+        }
+    )
+}
+
 const postCliente = function(request, response){
 
     cliente.create({
-        nome: request.body.nome,
-        cpf: request.body.cpf
+        Nome: request.body.nome,
+        CPF: request.body.cpf,
+        Email: request.body.email,
+        id_user:request.body.id_user
     })
     .then(function(data){
         return response.status(200).send({
@@ -20,7 +66,7 @@ const postCliente = function(request, response){
     })
     .catch(function(err){
         return response.status(406).send({
-            "message": "Não foi possivel criar o Cliente. " + err
+            "message": "Não foi possivel criar o Cliente. " +request.body.nome +"  "+ err.message
     });
     })
 //    return response.status(200).json("Usuário criado com sucesso");
@@ -29,8 +75,9 @@ const postCliente = function(request, response){
 const updateCliente = (request, response) =>{
     cliente.update(
         {
-            nome: request.body.nome,
-            cpf: request.body.cpf,
+            Nome: request.body.nome,
+            CPF: request.body.cpf,
+            Email:request.body.email,
             modified_time: Sequelize.literal('CURRENT_TIMESTAMP')
         },
         {where:{id:request.params.id}}
