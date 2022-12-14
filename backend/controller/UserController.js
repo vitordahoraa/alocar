@@ -2,13 +2,13 @@ const { response } = require('express');
 const user = require('../model/userModel');
 const Sequelize = require('sequelize');
 
-const getUsers = function(request, response){
+const getUsers = function(request, response){//SELECT * FROM users
     user.findAll().then(function(result){
         return response.status(200).json(result);
     });
 }
 
-const getUserByUsername = function(request, response){
+const getUserByUsername = function(request, response){//SELECT * FROM users WHERE username = $request.params.username
     user.
     findOne({
         where:{
@@ -30,23 +30,7 @@ const getUserByUsername = function(request, response){
         }
     )
 }
-const postUser = function(request, response){
-
-    let result = fetch('http://localhost:3001/users/?username='+username,{
-        method: 'GET',
-        headers:{
-            'Content-Type': 'application/json'
-        }
-    }).then((response)=>{
-        if(!response.ok){
-            return response.status(406).send(
-                {
-                "message": "NÃ£o foi possivel criar o usuÃ¡rio. Usuário já existente"
-                }
-            )
-        }
-    })
-
+const postUser = function(request, response){//INSERT INTO users (username, password) VALUES ($request.body.username, $request.body.password)
 
     user.create({
         username: request.body.username,
@@ -65,7 +49,7 @@ const postUser = function(request, response){
 //    return response.status(200).json("UsuÃ¡rio criado com sucesso");
 }
 
-const updateUser = (request, response) =>{
+const updateUser = (request, response) =>{//UPDATE users SET username = $request.body.username, password = $request.body.password WHERE id = $request.params.id
     user.update(
         {
             username: request.body.username,
@@ -86,7 +70,7 @@ const updateUser = (request, response) =>{
 
 }
 
-const deleteUser = function(request, response){
+const deleteUser = function(request, response){//DELETE FROM users WHERE id = $request.params.id
     user.destroy({where:{id:request.params.id}})
     .then(function(result){
         if(result==1)

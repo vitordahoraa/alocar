@@ -2,13 +2,13 @@ const { response } = require('express');
 const carro = require('../model/carroModel');
 const Sequelize = require('sequelize');
 
-const getCarros = function(request, response){
+const getCarros = function(request, response){//SELECT * FROM carros
     carro.findAll().then(function(result){
         return response.status(200).json(result);
     });
 }
 
-const getCarrosById = function(request, response){
+const getCarrosById = function(request, response){//SELECT * FROM clientes WHERE id = $request.params.id
 
     carro
     .findOne(
@@ -32,7 +32,7 @@ const getCarrosById = function(request, response){
     )
 
 }
-const postCarro = function(request, response){
+const postCarro = function(request, response){//INSERT INTO carros (placa, modelo, diaria, status) VALUES($request.body.placa,$request.body.modelo,$request.body.diaria,1)
 
     carro.create({
         placa: request.body.placa,
@@ -52,7 +52,8 @@ const postCarro = function(request, response){
     })
 }
 
-const updateCarro = (request, response) =>{
+const updateCarro = (request, response) =>{//UPDATE carros SET placa = $request.body.placa, modelo = $request.body.modelo, diaria = $request.body.diaria, status = $request.body.status, modified_time = CURRENT_TIMESTAMP WHERE id = $request.params.id
+
     carro.update(
         {
             placa: request.body.placa,
@@ -75,7 +76,7 @@ const updateCarro = (request, response) =>{
 
 }
 
-const deleteCarro = function(request, response){
+const deleteCarro = function(request, response){ // DELETE FROM carros WHERE id = $request.params.id
     carro.destroy({where:{id:request.params.id}})
     .then(function(result){
         if(result==1)

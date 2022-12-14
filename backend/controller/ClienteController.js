@@ -4,16 +4,16 @@ const Sequelize = require('sequelize');
 
 
 const getCliente = (request,response) =>{
-    cliente.findAll().then(function(result){
+    cliente.findAll().then(function(result){ //SELECT * FROM clientes
         return response.status(200).json(result);
     });
 }
 
 
-const getClienteById = function(request, response){
+const getClienteById = function(request, response){ // SELECT * FROM clientes WHERE id = $request.params.id
     cliente.
     findOne({where:{
-        id:request.params.id
+        id:request.params.id 
         }
     })
     .then(function(result){
@@ -30,11 +30,11 @@ const getClienteById = function(request, response){
     )
 }
 
-const getClienteByNomeAndCpf = function(request, response){
+const getClienteByNomeAndCpf = function(request, response){ // SELECT * FROM clientes WHERE Nome = $request.params.nome AND CPF = $request.params.CPF  
     cliente.
     findOne({where:{
         Nome:request.params.nome,
-        CPF:request.params.CPF
+        CPF:request.params.CPF 
         }
     })
     .then(function(result){
@@ -51,7 +51,7 @@ const getClienteByNomeAndCpf = function(request, response){
     )
 }
 
-const postCliente = function(request, response){
+const postCliente = function(request, response){ //INSERT INTO clientes (Nome, CPF, Email, id_user) VALUES($request.body.nome,$request.body.cpf,$request.body.email,$request.body.id_user)
 
     cliente.create({
         Nome: request.body.nome,
@@ -72,7 +72,7 @@ const postCliente = function(request, response){
 //    return response.status(200).json("Usuário criado com sucesso");
 }
 
-const updateCliente = (request, response) =>{
+const updateCliente = (request, response) =>{ //UPDATE clientes SET Nome = $request.body.nome, CPF = $request.body.cpf, Email = $request.body.email, modified_time = CURRENT_TIMESTAMP WHERE id = $request.params.id
     cliente.update(
         {
             Nome: request.body.nome,
@@ -93,7 +93,7 @@ const updateCliente = (request, response) =>{
 
 }
 
-const deleteCliente = function(request, response){
+const deleteCliente = function(request, response){ // DELETE FROM clientes WHERE id = $request.params.id
     cliente.destroy({where:{id:request.params.id}})
     .then(function(result){
         if(result==1)
